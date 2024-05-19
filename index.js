@@ -1,6 +1,6 @@
 //Select and cache the <main> element in a variable named mainEl.
 const mainEl = document.getElementsByTagName('main');
-console.log(mainEl);
+//console.log(mainEl);
 
 //Select and cache the <nav id="sub-menu"> element in a variable named subMenuEl.
 const subMenuEl = document.getElementById('sub-menu');
@@ -37,7 +37,7 @@ mainEl[0].classList.toggle('flex-ctr')
 //Select and cache the <nav id="top-menu"> element in a variable named topMenuEl.
 
 const topMenuEl = document.getElementById('top-menu');
-console.log(topMenuEl);
+//console.log(topMenuEl);
 
 //Set the height of the topMenuEl element to be 100%.
 
@@ -55,25 +55,62 @@ topMenuEl.classList.toggle('flex-around');
 
 // Menu data structure
 var menuLinks = [
-    { text: 'about', href: '/about' },
-    { text: 'catalog', href: '/catalog' },
-    { text: 'orders', href: '/orders' },
-    { text: 'account', href: '/account' },
+    {text: 'about', href: '/about'},
+    {text: 'catalog', href: '#', subLinks: [
+    {text: 'all', href: '/catalog/all'},
+    {text: 'top selling', href: '/catalog/top'},
+    {text: 'search', href: '/catalog/search'},
+  ]},
+    {text: 'orders', href: '#' , subLinks: [
+    {text: 'new', href: '/orders/new'},
+    {text: 'pending', href: '/orders/pending'},
+    {text: 'history', href: '/orders/history'},
+  ]},
+    {text: 'account', href: '#', subLinks: [
+    {text: 'profile', href: '/account/profile'},
+    {text: 'sign out', href: '/account/signout'},
+  ]},
   ];
 
   //Iterate over the entire menuLinks array and for each "link" object:
   menuLinks.forEach(link =>{
-     console.log(link)
+    // console.log(link)
      let anchor = document.createElement("a");
-     console.log(anchor);
+     //console.log(anchor);
      anchor.setAttribute("href",'#');
      anchor.textContent = link.text;
-     console.log(link.text);
+     //console.log(link.text);
      topMenuEl.appendChild(anchor)
     
     });
 
+//Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.  
 
+let topMenuLinks = topMenuEl.querySelectorAll('a');
+console.log("topmenu",topMenuLinks);
+
+topMenuEl.addEventListener("click" , handleClick);
+
+function handleClick(e){
+    e.preventDefault();
+    console.log("click");
+    console.log(e);
+    //console.log(e.target.localName);
+
+    if(e.target.localName !== 'a'){
+        return;    
+    }
+    //cache the clicked <a> element
+    const clickedlink = e.target;
+    console.log(clickedlink);
+    //loop through all <a> element
+    topMenuLinks.forEach((link) => {
+        link.classList.remove("active");
+    });
+    clickedlink.classList.toggle("active");
+
+
+}
 
 
 
